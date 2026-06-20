@@ -20,12 +20,7 @@ const Navbar = () => {
         </a>
 
         <ul className={styles.navLinks}>
-          <li className={styles.navItem}>
-            <a href="#hero" className={`${styles.navLink} ${styles.activeLink}`}>
-              Home
-            </a>
-            <div className={styles.underline} />
-          </li>
+          {/* Add navigation links here if needed in the future */}
         </ul>
       </div>
     </nav>
