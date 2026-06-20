@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import {
   Phone, Mail, MessageSquare, Check,
-  Building2, MapPin, User, Loader2, CheckCircle2, ArrowRight
+  Building2, MapPin, User, ArrowRight
 } from 'lucide-react';
 import styles from './Contact.module.css';
 
@@ -18,35 +18,6 @@ const services = [
 ];
 
 const Contact = () => {
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    const form = e.target;
-    const data = new FormData(form);
-
-    try {
-      const res = await fetch('https://formsubmit.co/ajax/siddhihygiene@gmail.com', {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: data,
-      });
-      const result = await res.json();
-      if (result.success === 'true' || result.success === true) {
-        setSubmitted(true);
-      } else {
-        alert('Something went wrong. Please call us directly.');
-      }
-    } catch {
-      alert('Something went wrong. Please call us directly.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <section className={styles.section} id="contact">
 
@@ -117,7 +88,7 @@ const Contact = () => {
               </div>
             </motion.div>
 
-            {/* Right — Form */}
+            {/* Right — Form (native POST to FormSubmit) */}
             <motion.div
               className={styles.formCard}
               initial={{ opacity: 0, x: 30 }}
@@ -125,114 +96,86 @@ const Contact = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.55, delay: 0.1 }}
             >
-              <AnimatePresence mode="wait">
-                {submitted ? (
-                  <motion.div
-                    key="success"
-                    className={styles.successBox}
-                    initial={{ opacity: 0, scale: 0.92 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
+              <h3 className={styles.formHeading}>Get Free Commercial Cleaning Assessment</h3>
+
+              <form
+                action="https://formsubmit.co/siddhihygiene@gmail.com"
+                method="POST"
+                className={styles.form}
+              >
+                {/* FormSubmit config */}
+                <input type="hidden" name="_subject" value="🧹 New Quote Request — Siddhi Hygiene" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="_next" value="https://siddhi-hygiene.vercel.app/#quote-form" />
+                <input type="text" name="_honey" style={{ display: 'none' }} />
+
+                {/* Company Name */}
+                <div className={styles.field}>
+                  <label htmlFor="companyName" className={styles.label}>
+                    <Building2 size={14} /> Company / Organisation Name
+                  </label>
+                  <input
+                    id="companyName"
+                    name="Company Name"
+                    type="text"
+                    required
+                    placeholder="e.g. Infosys Pune Office"
+                    className={styles.input}
+                  />
+                </div>
+
+                {/* Phone */}
+                <div className={styles.field}>
+                  <label htmlFor="phone" className={styles.label}>
+                    <Phone size={14} /> Phone Number
+                  </label>
+                  <input
+                    id="phone"
+                    name="Phone Number"
+                    type="tel"
+                    required
+                    placeholder="e.g. +91 98765 43210"
+                    className={styles.input}
+                  />
+                </div>
+
+                {/* Address */}
+                <div className={styles.field}>
+                  <label htmlFor="address" className={styles.label}>
+                    <MapPin size={14} /> Site Address
+                  </label>
+                  <textarea
+                    id="address"
+                    name="Site Address"
+                    required
+                    rows={3}
+                    placeholder="Building name, area, city…"
+                    className={`${styles.input} ${styles.textarea}`}
+                  />
+                </div>
+
+                {/* Service */}
+                <div className={styles.field}>
+                  <label htmlFor="service" className={styles.label}>
+                    <User size={14} /> Service Required
+                  </label>
+                  <select
+                    id="service"
+                    name="Service Required"
+                    className={`${styles.input} ${styles.select}`}
                   >
-                    <CheckCircle2 size={52} color="var(--color-accent)" />
-                    <h3>Request Submitted!</h3>
-                    <p>Thank you! Our team will contact you within 24 hours to schedule your free inspection.</p>
-                    <button className="btn btn-primary" onClick={() => setSubmitted(false)}>
-                      Submit Another
-                    </button>
-                  </motion.div>
-                ) : (
-                  <motion.form
-                    key="form"
-                    className={styles.form}
-                    onSubmit={handleSubmit}
-                    initial={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
-                    {/* FormSubmit hidden config fields */}
-                    <input type="hidden" name="_subject" value="New Quote Request — Siddhi Hygiene Website" />
-                    <input type="hidden" name="_captcha" value="false" />
-                    <input type="hidden" name="_template" value="table" />
-                    <input type="text" name="_honey" style={{ display: 'none' }} />
+                    <option value="">Select a service…</option>
+                    {services.map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                </div>
 
-                    <h3 className={styles.formHeading}>Get Free Commercial Cleaning Assessment</h3>
-
-                    {/* Company Name */}
-                    <div className={styles.field}>
-                      <label htmlFor="companyName" className={styles.label}>
-                        <Building2 size={14} /> Company / Organisation Name
-                      </label>
-                      <input
-                        id="companyName"
-                        name="Company Name"
-                        type="text"
-                        required
-                        placeholder="e.g. Infosys Pune Office"
-                        className={styles.input}
-                      />
-                    </div>
-
-                    {/* Phone */}
-                    <div className={styles.field}>
-                      <label htmlFor="phone" className={styles.label}>
-                        <Phone size={14} /> Phone Number
-                      </label>
-                      <input
-                        id="phone"
-                        name="Phone Number"
-                        type="tel"
-                        required
-                        placeholder="e.g. +91 98765 43210"
-                        className={styles.input}
-                      />
-                    </div>
-
-                    {/* Address */}
-                    <div className={styles.field}>
-                      <label htmlFor="address" className={styles.label}>
-                        <MapPin size={14} /> Site Address
-                      </label>
-                      <textarea
-                        id="address"
-                        name="Site Address"
-                        required
-                        rows={3}
-                        placeholder="Building name, area, city…"
-                        className={`${styles.input} ${styles.textarea}`}
-                      />
-                    </div>
-
-                    {/* Service */}
-                    <div className={styles.field}>
-                      <label htmlFor="service" className={styles.label}>
-                        <User size={14} /> Service Required
-                      </label>
-                      <select
-                        id="service"
-                        name="Service Required"
-                        className={`${styles.input} ${styles.select}`}
-                      >
-                        <option value="">Select a service…</option>
-                        {services.map((s) => (
-                          <option key={s} value={s}>{s}</option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <button
-                      type="submit"
-                      className={`btn btn-primary ${styles.submitBtn}`}
-                      disabled={loading}
-                    >
-                      {loading ? (
-                        <><Loader2 size={18} className={styles.spin} /> Sending…</>
-                      ) : (
-                        <>Send Request <ArrowRight size={18} /></>
-                      )}
-                    </button>
-                  </motion.form>
-                )}
-              </AnimatePresence>
+                <button type="submit" className={`btn btn-primary ${styles.submitBtn}`}>
+                  Send Request <ArrowRight size={18} />
+                </button>
+              </form>
             </motion.div>
 
           </div>
