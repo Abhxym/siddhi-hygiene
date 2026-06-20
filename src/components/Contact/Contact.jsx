@@ -6,14 +6,6 @@ import {
 } from 'lucide-react';
 import styles from './Contact.module.css';
 
-/* ─────────────────────────────────────────────────────
-   REPLACE THIS KEY:
-   1. Go to https://web3forms.com/
-   2. Enter your email → click "Create Access Key"
-   3. Paste the key below
-──────────────────────────────────────────────────────── */
-const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
-
 const services = [
   'General Deep Cleaning',
   'Kitchen / Pantry Cleaning',
@@ -26,48 +18,32 @@ const services = [
 ];
 
 const Contact = () => {
-  const [form, setForm] = useState({
-    companyName: '',
-    phone: '',
-    address: '',
-    service: '',
-  });
-  const [status, setStatus] = useState('idle'); // idle | loading | success | error
-
-  const handleChange = (e) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus('loading');
+    setLoading(true);
 
-    const payload = {
-      access_key: WEB3FORMS_KEY,
-      subject: `New Quote Request — ${form.companyName}`,
-      from_name: form.companyName,
-      company_name: form.companyName,
-      phone: form.phone,
-      address: form.address,
-      service_required: form.service || 'Not specified',
-      botcheck: '',
-    };
+    const form = e.target;
+    const data = new FormData(form);
 
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
+      const res = await fetch('https://formsubmit.co/ajax/siddhihygiene@gmail.com', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(payload),
+        headers: { Accept: 'application/json' },
+        body: data,
       });
-      const data = await res.json();
-      if (data.success) {
-        setStatus('success');
-        setForm({ companyName: '', phone: '', address: '', service: '' });
+      const result = await res.json();
+      if (result.success === 'true' || result.success === true) {
+        setSubmitted(true);
       } else {
-        setStatus('error');
+        alert('Something went wrong. Please call us directly.');
       }
     } catch {
-      setStatus('error');
+      alert('Something went wrong. Please call us directly.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -150,7 +126,7 @@ const Contact = () => {
               transition={{ duration: 0.55, delay: 0.1 }}
             >
               <AnimatePresence mode="wait">
-                {status === 'success' ? (
+                {submitted ? (
                   <motion.div
                     key="success"
                     className={styles.successBox}
@@ -161,7 +137,7 @@ const Contact = () => {
                     <CheckCircle2 size={52} color="var(--color-accent)" />
                     <h3>Request Submitted!</h3>
                     <p>Thank you! Our team will contact you within 24 hours to schedule your free inspection.</p>
-                    <button className={`btn btn-primary`} onClick={() => setStatus('idle')}>
+                    <button className="btn btn-primary" onClick={() => setSubmitted(false)}>
                       Submit Another
                     </button>
                   </motion.div>
@@ -173,6 +149,12 @@ const Contact = () => {
                     initial={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
+                    {/* FormSubmit hidden config fields */}
+                    <input type="hidden" name="_subject" value="New Quote Request — Siddhi Hygiene Website" />
+                    <input type="hidden" name="_captcha" value="false" />
+                    <input type="hidden" name="_template" value="table" />
+                    <input type="text" name="_honey" style={{ display: 'none' }} />
+
                     <h3 className={styles.formHeading}>Get Free Commercial Cleaning Assessment</h3>
 
                     {/* Company Name */}
@@ -182,13 +164,11 @@ const Contact = () => {
                       </label>
                       <input
                         id="companyName"
-                        name="companyName"
+                        name="Company Name"
                         type="text"
                         required
                         placeholder="e.g. Infosys Pune Office"
                         className={styles.input}
-                        value={form.companyName}
-                        onChange={handleChange}
                       />
                     </div>
 
@@ -199,13 +179,11 @@ const Contact = () => {
                       </label>
                       <input
                         id="phone"
-                        name="phone"
+                        name="Phone Number"
                         type="tel"
                         required
                         placeholder="e.g. +91 98765 43210"
                         className={styles.input}
-                        value={form.phone}
-                        onChange={handleChange}
                       />
                     </div>
 
@@ -216,13 +194,11 @@ const Contact = () => {
                       </label>
                       <textarea
                         id="address"
-                        name="address"
+                        name="Site Address"
                         required
                         rows={3}
                         placeholder="Building name, area, city…"
                         className={`${styles.input} ${styles.textarea}`}
-                        value={form.address}
-                        onChange={handleChange}
                       />
                     </div>
 
@@ -233,10 +209,8 @@ const Contact = () => {
                       </label>
                       <select
                         id="service"
-                        name="service"
+                        name="Service Required"
                         className={`${styles.input} ${styles.select}`}
-                        value={form.service}
-                        onChange={handleChange}
                       >
                         <option value="">Select a service…</option>
                         {services.map((s) => (
@@ -245,19 +219,12 @@ const Contact = () => {
                       </select>
                     </div>
 
-                    {/* Hidden botcheck for Web3Forms */}
-                    <input type="checkbox" name="botcheck" className={styles.botcheck} />
-
-                    {status === 'error' && (
-                      <p className={styles.errorMsg}>Something went wrong. Please try calling us directly.</p>
-                    )}
-
                     <button
                       type="submit"
                       className={`btn btn-primary ${styles.submitBtn}`}
-                      disabled={status === 'loading'}
+                      disabled={loading}
                     >
-                      {status === 'loading' ? (
+                      {loading ? (
                         <><Loader2 size={18} className={styles.spin} /> Sending…</>
                       ) : (
                         <>Send Request <ArrowRight size={18} /></>
@@ -282,7 +249,7 @@ const Contact = () => {
                 <span className={styles.ctaPoint}><Check size={14} style={{ marginRight: '6px' }} />Free Site Inspection</span>
                 <span className={styles.ctaPoint}><Check size={14} style={{ marginRight: '6px' }} />Custom Quotation</span>
                 <span className={styles.ctaPoint}><Check size={14} style={{ marginRight: '6px' }} />Flexible Scheduling</span>
-                <span className={styles.ctaPoint}><Check size={14} style={{ marginRight: '6px' }} />One-Time & AMC Available</span>
+                <span className={styles.ctaPoint}><Check size={14} style={{ marginRight: '6px' }} />One-Time &amp; AMC Available</span>
               </div>
             </div>
             <div className={styles.ctaContacts}>
