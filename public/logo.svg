@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" fill="none">
+  <!-- Wordmark "Siddhı" with dotless second "i" -->
+  <text x="110" y="48" text-anchor="middle" font-family="'Outfit', 'Inter', sans-serif" font-size="44" font-weight="800" fill="#594294" letter-spacing="-0.5">Siddhı</text>
+  
+  <!-- Leaf acting as the dot of the second "i" -->
+  <g transform="translate(148, -4)">
+    <path d="M14 2 C22 2, 28 10, 26 20 C24 28, 16 32, 10 28 C4 24, 2 14, 6 8 C8 4, 12 2, 14 2 Z" fill="#BCAEE0"/>
+    <path d="M14 4 L10 26" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+  </g>
+
+  <!-- "HYGIENE" subtitle centered under the wordmark -->
+  <text x="110" y="66" text-anchor="middle" font-family="'Outfit', 'Inter', sans-serif" font-size="11" font-weight="600" fill="#594294" letter-spacing="5">HYGIENE</text>
+</svg>

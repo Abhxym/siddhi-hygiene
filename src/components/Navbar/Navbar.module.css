@@ -1,0 +1,124 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 0.5rem 0;
+  background: transparent;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-bottom: 1px solid transparent;
+}
+
+.navbar.scrolled {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 0.25rem 0;
+  box-shadow: 0 10px 30px rgba(93, 74, 168, 0.06);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 112px;
+  transition: min-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scrolled .inner {
+  min-height: 88px;
+}
+
+.logo {
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
+
+.logoImg {
+  height: 112px; /* Increased size when transparent */
+  width: auto;
+  object-fit: contain;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(255, 255, 255, 0.15));
+}
+
+.logoImg:hover {
+  transform: scale(1.02);
+  opacity: 0.95;
+}
+
+.scrolled .logoImg {
+  height: 88px; /* Increased size when scrolled */
+  filter: none;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  transition: transform 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .navLinks {
+    transform: translateX(-150px); /* Shift left on desktop to align where Home used to be */
+  }
+}
+
+.navItem {
+  position: relative;
+  padding: 0.4rem 0;
+}
+
+.navLink {
+  display: block;
+  padding: 0.4rem 1rem;
+  font-family: var(--font-family-title);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  letter-spacing: 0.75px;
+  transition: all 0.25s ease;
+  text-transform: uppercase;
+}
+
+.navLink:hover,
+.activeLink {
+  color: var(--color-white);
+}
+
+.underline {
+  position: absolute;
+  bottom: 0;
+  left: 1rem;
+  right: 1rem;
+  height: 3px;
+  background: var(--color-white);
+  border-radius: 2px;
+}
+
+/* Scrolled link overrides */
+.scrolled .navLink {
+  color: var(--color-text-dark);
+}
+
+.scrolled .navLink:hover,
+.scrolled .activeLink {
+  color: var(--color-primary);
+}
+
+.scrolled .underline {
+  background: var(--color-primary);
+}

@@ -1,0 +1,247 @@
+/* ── About Section ── white background, split layout */
+.section {
+  background: var(--color-white);
+  padding: 7rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ────────────────────────────
+   CLEANING BACKGROUND ANIMATION
+──────────────────────────── */
+.animBg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Soap Bubbles */
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255,255,255,0.95),
+    rgba(89,66,148,0.06) 60%,
+    rgba(188,174,224,0.15)
+  );
+  border: 1px solid rgba(89,66,148,0.12);
+  box-shadow:
+    inset 0 0 12px rgba(255,255,255,0.9),
+    inset -4px -4px 8px rgba(89,66,148,0.08),
+    0 4px 15px rgba(89,66,148,0.06);
+  animation: bubbleRise var(--dur, 14s) var(--delay, 0s) infinite ease-in;
+  opacity: 0;
+}
+
+/* Individual bubble positions & sizes */
+.b1  { width:55px;  height:55px;  left:6%;   --dur:13s; --delay:0s;   }
+.b2  { width:90px;  height:90px;  left:15%;  --dur:18s; --delay:2s;   }
+.b3  { width:40px;  height:40px;  left:28%;  --dur:11s; --delay:5s;   }
+.b4  { width:70px;  height:70px;  left:42%;  --dur:16s; --delay:1s;   }
+.b5  { width:30px;  height:30px;  left:55%;  --dur:10s; --delay:7s;   }
+.b6  { width:110px; height:110px; left:65%;  --dur:22s; --delay:3s;   }
+.b7  { width:50px;  height:50px;  left:76%;  --dur:14s; --delay:9s;   }
+.b8  { width:75px;  height:75px;  left:85%;  --dur:19s; --delay:4s;   }
+.b9  { width:35px;  height:35px;  left:92%;  --dur:12s; --delay:6s;   }
+.b10 { width:60px;  height:60px;  left:50%;  --dur:15s; --delay:8s;   }
+
+@keyframes bubbleRise {
+  0%   { transform: translateY(110vh) translateX(0)   scale(0.6); opacity: 0;    }
+  8%   { opacity: 0.55; }
+  50%  { transform: translateY(40vh)  translateX(30px)  scale(1);   opacity: 0.5; }
+  92%  { opacity: 0.4;  }
+  100% { transform: translateY(-15vh) translateX(-20px) scale(1.1); opacity: 0;   }
+}
+
+/* Sparkle dots */
+.sparkle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: sparkleAnim var(--sd, 3s) var(--ss, 0s) infinite ease-in-out;
+  opacity: 0;
+}
+
+.s1 { width:6px;  height:6px;  top:15%; left:8%;  --sd:2.8s; --ss:0s;   }
+.s2 { width:8px;  height:8px;  top:35%; left:80%; --sd:3.4s; --ss:1.2s; }
+.s3 { width:5px;  height:5px;  top:60%; left:22%; --sd:2.5s; --ss:0.7s; }
+.s4 { width:7px;  height:7px;  top:75%; left:70%; --sd:3.8s; --ss:2s;   }
+.s5 { width:9px;  height:9px;  top:20%; left:55%; --sd:2.2s; --ss:1.5s; }
+.s6 { width:5px;  height:5px;  top:80%; left:40%; --sd:3.1s; --ss:0.4s; }
+
+@keyframes sparkleAnim {
+  0%,100% { transform: scale(0) rotate(0deg);   opacity: 0;   }
+  30%      { transform: scale(1.6) rotate(45deg); opacity: 0.7; }
+  60%      { transform: scale(0.8) rotate(90deg); opacity: 0.4; }
+}
+
+/* Spray arcs — soft swoosh curves */
+.spray1, .spray2 {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(89,66,148,0.07);
+  animation: sprayPulse 6s ease-in-out infinite;
+}
+
+.spray1 {
+  width: 400px;
+  height: 400px;
+  top: -120px;
+  right: -80px;
+  animation-delay: 0s;
+}
+
+.spray2 {
+  width: 300px;
+  height: 300px;
+  bottom: -80px;
+  left: -60px;
+  animation-delay: 3s;
+  border-color: rgba(188,174,224,0.12);
+}
+
+@keyframes sprayPulse {
+  0%,100% { transform: scale(1);    opacity: 0.6; }
+  50%      { transform: scale(1.12); opacity: 1;   }
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Left: Text ── */
+.textSide {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--color-text-dark);
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin-bottom: 1.5rem;
+}
+
+.accent {
+  color: var(--color-primary);
+}
+
+.body {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.body strong {
+  color: var(--color-text-dark);
+  font-weight: 700;
+}
+
+/* Pillars */
+.pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1.75rem 0 2rem;
+}
+
+.pillar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-bg-light);
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0 0.5rem 0.5rem 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-text-dark);
+  transition: background 0.25s ease;
+}
+
+.pillar:hover {
+  background: var(--color-secondary);
+}
+
+.pillarIcon {
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.pillarLabel {}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+}
+
+/* ── Right: Image ── */
+.imageSide {
+  position: relative;
+}
+
+.imageFrame {
+  position: relative;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(89, 66, 148, 0.15);
+}
+
+.photo,
+.video {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.imageFrame:hover .photo,
+.imageFrame:hover .video {
+  transform: scale(1.04);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .inner { grid-template-columns: 1fr; gap: 3.5rem; }
+  .title { font-size: 2.25rem; }
+  .photo,
+  .video { height: 380px; }
+}
+
+@media (max-width: 640px) {
+  .title { font-size: 1.85rem; }
+  .photo,
+  .video { height: 280px; }
+  .section { padding: 5rem 0; }
+}

@@ -1,0 +1,114 @@
+/* ── WhySiddhi ── light theme */
+.section {
+  background: var(--color-bg-light);
+  padding: 6rem 0;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.header {
+  margin-bottom: 4rem;
+  max-width: 700px;
+}
+
+.title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--color-text-dark);
+  margin-bottom: 1rem;
+  line-height: 1.15;
+}
+
+.brand { color: var(--color-primary); }
+
+.sub {
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--color-white);
+  border-radius: 1.25rem;
+  padding: 2rem 1.75rem;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 15px rgba(93,74,168,0.04);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 12px 30px rgba(93,74,168,0.1);
+  transform: translateY(-6px);
+}
+
+.iconBox {
+  width: 54px;
+  height: 54px;
+  background: var(--color-bg-light);
+  border-radius: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.card:hover .iconBox {
+  background: var(--color-primary);
+  transform: rotate(5deg) scale(1.08);
+}
+
+.iconInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  transition: color 0.25s ease;
+}
+
+.card:hover .iconInner {
+  color: #fff;
+}
+
+.accentLine {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  transform-origin: left;
+  border-radius: 0 0 1.25rem 1.25rem;
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  color: var(--color-text-dark);
+}
+
+.cardDesc {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }

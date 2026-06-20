@@ -1,0 +1,256 @@
+/* ── Gallery ── */
+.section {
+  background: var(--color-bg-light);
+  padding: 7rem 0;
+  overflow: hidden;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 4rem;
+  gap: 2rem;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  background: rgba(93,74,168,0.08);
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid rgba(93,74,168,0.15);
+}
+
+.title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--color-text-dark);
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+}
+
+.accent { color: var(--color-primary); }
+
+.subtitle {
+  max-width: 500px;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  font-size: 1rem;
+  text-align: right;
+}
+
+/* ── Bento Grid ── */
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 260px;
+  grid-auto-flow: dense;
+  gap: 1.25rem;
+}
+
+.gridItem {
+  position: relative;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+  cursor: pointer;
+  background: var(--color-text-dark);
+}
+
+/* Shine sweep on hover */
+.gridItem::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.18), transparent);
+  transition: left 0.5s ease;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.gridItem:hover::after {
+  left: 150%;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Overlay */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 10, 30, 0.9) 0%, rgba(15,10,30,0.2) 50%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 1.5rem;
+  z-index: 2;
+}
+
+.imageTitle {
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  flex: 1;
+}
+
+.zoomBtn {
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.zoomBtn:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* Invisible full-size click target */
+.clickTarget {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  cursor: pointer;
+}
+
+/* Span classes */
+.tall  { grid-row: span 2; }
+.wide  { grid-column: span 2; }
+.square { grid-column: span 1; grid-row: span 1; }
+
+/* ── Lightbox ── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(5, 3, 15, 0.95);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.lightboxImgWrap {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+}
+
+.lightboxImg {
+  width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  display: block;
+  background: #111;
+}
+
+.lightboxCaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(5,3,15,0.95), transparent);
+  padding: 2rem 1.5rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.lightboxCounter {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.85rem;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 46px;
+  height: 46px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s;
+}
+
+.closeBtn:hover { background: rgba(255,255,255,0.2); }
+
+.navBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 54px;
+  height: 54px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s;
+}
+
+.navBtn:hover { background: var(--color-primary); border-color: var(--color-primary); }
+.navLeft  { left: 1.5rem; }
+.navRight { right: 1.5rem; }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .header { flex-direction: column; align-items: flex-start; }
+  .subtitle { text-align: left; }
+  .bentoGrid { grid-template-columns: repeat(2, 1fr); }
+  .wide { grid-column: span 2; }
+}
+
+@media (max-width: 640px) {
+  .title { font-size: 2rem; }
+  .bentoGrid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+  .tall, .wide, .square { grid-column: span 1; grid-row: span 1; }
+  .navBtn { width: 42px; height: 42px; }
+  .navLeft { left: 0.5rem; }
+  .navRight { right: 0.5rem; }
+}
