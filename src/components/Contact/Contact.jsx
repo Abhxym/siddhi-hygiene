@@ -1,23 +1,278 @@
-import React from 'react';
-import { Phone, Mail, MessageSquare, Check } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Phone, Mail, MessageSquare, Check,
+  Building2, MapPin, User, Loader2, CheckCircle2, ArrowRight
+} from 'lucide-react';
 import styles from './Contact.module.css';
 
+/* ─────────────────────────────────────────────────────
+   REPLACE THIS KEY:
+   1. Go to https://web3forms.com/
+   2. Enter your email → click "Create Access Key"
+   3. Paste the key below
+──────────────────────────────────────────────────────── */
+const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+
+const services = [
+  'General Deep Cleaning',
+  'Kitchen / Pantry Cleaning',
+  'Washroom Sanitization',
+  'Facade / Glass Cleaning',
+  'Post-Construction Cleaning',
+  'Industrial / Factory Cleaning',
+  'AMC (Annual Maintenance Contract)',
+  'Other',
+];
+
 const Contact = () => {
+  const [form, setForm] = useState({
+    companyName: '',
+    phone: '',
+    address: '',
+    service: '',
+  });
+  const [status, setStatus] = useState('idle'); // idle | loading | success | error
+
+  const handleChange = (e) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('loading');
+
+    const payload = {
+      access_key: WEB3FORMS_KEY,
+      subject: `New Quote Request — ${form.companyName}`,
+      from_name: form.companyName,
+      company_name: form.companyName,
+      phone: form.phone,
+      address: form.address,
+      service_required: form.service || 'Not specified',
+      botcheck: '',
+    };
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatus('success');
+        setForm({ companyName: '', phone: '', address: '', service: '' });
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+  };
 
   return (
     <section className={styles.section} id="contact">
-      {/* Special Offer Banner */}
+
+      {/* ── Special Offer Banner ── */}
       <div className={styles.offerBanner}>
         <div className="container">
           <div className={styles.offerInner}>
             <span className={styles.offerBadge}>🎉 Special Offer</span>
-            <p className={styles.offerText}>Get <strong>10% OFF</strong> on your first commercial deep-cleaning project — Limited time offer!</p>
+            <p className={styles.offerText}>
+              Get <strong>10% OFF</strong> on your first commercial deep-cleaning project — Limited time offer!
+            </p>
             <a href="tel:+919552556523" className={`btn ${styles.offerBtn}`}>Claim Offer Now</a>
           </div>
         </div>
       </div>
 
-      {/* CTA Banner */}
+      {/* ── Quote Form Section ── */}
+      <div className={styles.formSection} id="quote-form">
+        <div className="container">
+          <div className={styles.formGrid}>
+
+            {/* Left — Info */}
+            <motion.div
+              className={styles.formInfo}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55 }}
+            >
+              <p className={styles.eyebrow}>GET IN TOUCH</p>
+              <h2 className={styles.formTitle}>
+                Request a <span className={styles.accent}>Free Quote</span>
+              </h2>
+              <p className={styles.formSub}>
+                Fill in your details and our team will get back to you within 24 hours with a customized cleaning plan and pricing.
+              </p>
+
+              <div className={styles.infoItems}>
+                <a href="tel:+919552556523" className={styles.infoItem}>
+                  <span className={styles.infoIcon}><Phone size={18} /></span>
+                  <div>
+                    <div className={styles.infoLabel}>Call Us</div>
+                    <div className={styles.infoVal}>+91 95525 56523</div>
+                  </div>
+                </a>
+                <a href="mailto:siddhihygiene@gmail.com" className={styles.infoItem}>
+                  <span className={styles.infoIcon}><Mail size={18} /></span>
+                  <div>
+                    <div className={styles.infoLabel}>Email</div>
+                    <div className={styles.infoVal}>siddhihygiene@gmail.com</div>
+                  </div>
+                </a>
+                <a href="https://wa.me/919552556523" className={styles.infoItem} target="_blank" rel="noopener noreferrer">
+                  <span className={styles.infoIcon}><MessageSquare size={18} /></span>
+                  <div>
+                    <div className={styles.infoLabel}>WhatsApp</div>
+                    <div className={styles.infoVal}>Chat with Us</div>
+                  </div>
+                </a>
+              </div>
+
+              <div className={styles.promises}>
+                {['Free Site Inspection', 'Custom Quotation', 'Flexible Scheduling', 'One-Time & AMC Available'].map((p) => (
+                  <span key={p} className={styles.promise}>
+                    <Check size={13} /> {p}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Right — Form */}
+            <motion.div
+              className={styles.formCard}
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, delay: 0.1 }}
+            >
+              <AnimatePresence mode="wait">
+                {status === 'success' ? (
+                  <motion.div
+                    key="success"
+                    className={styles.successBox}
+                    initial={{ opacity: 0, scale: 0.92 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <CheckCircle2 size={52} color="var(--color-accent)" />
+                    <h3>Request Submitted!</h3>
+                    <p>Thank you! Our team will contact you within 24 hours to schedule your free inspection.</p>
+                    <button className={`btn btn-primary`} onClick={() => setStatus('idle')}>
+                      Submit Another
+                    </button>
+                  </motion.div>
+                ) : (
+                  <motion.form
+                    key="form"
+                    className={styles.form}
+                    onSubmit={handleSubmit}
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <h3 className={styles.formHeading}>Get Free Commercial Cleaning Assessment</h3>
+
+                    {/* Company Name */}
+                    <div className={styles.field}>
+                      <label htmlFor="companyName" className={styles.label}>
+                        <Building2 size={14} /> Company / Organisation Name
+                      </label>
+                      <input
+                        id="companyName"
+                        name="companyName"
+                        type="text"
+                        required
+                        placeholder="e.g. Infosys Pune Office"
+                        className={styles.input}
+                        value={form.companyName}
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Phone */}
+                    <div className={styles.field}>
+                      <label htmlFor="phone" className={styles.label}>
+                        <Phone size={14} /> Phone Number
+                      </label>
+                      <input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        required
+                        placeholder="e.g. +91 98765 43210"
+                        className={styles.input}
+                        value={form.phone}
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Address */}
+                    <div className={styles.field}>
+                      <label htmlFor="address" className={styles.label}>
+                        <MapPin size={14} /> Site Address
+                      </label>
+                      <textarea
+                        id="address"
+                        name="address"
+                        required
+                        rows={3}
+                        placeholder="Building name, area, city…"
+                        className={`${styles.input} ${styles.textarea}`}
+                        value={form.address}
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Service */}
+                    <div className={styles.field}>
+                      <label htmlFor="service" className={styles.label}>
+                        <User size={14} /> Service Required
+                      </label>
+                      <select
+                        id="service"
+                        name="service"
+                        className={`${styles.input} ${styles.select}`}
+                        value={form.service}
+                        onChange={handleChange}
+                      >
+                        <option value="">Select a service…</option>
+                        {services.map((s) => (
+                          <option key={s} value={s}>{s}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Hidden botcheck for Web3Forms */}
+                    <input type="checkbox" name="botcheck" className={styles.botcheck} />
+
+                    {status === 'error' && (
+                      <p className={styles.errorMsg}>Something went wrong. Please try calling us directly.</p>
+                    )}
+
+                    <button
+                      type="submit"
+                      className={`btn btn-primary ${styles.submitBtn}`}
+                      disabled={status === 'loading'}
+                    >
+                      {status === 'loading' ? (
+                        <><Loader2 size={18} className={styles.spin} /> Sending…</>
+                      ) : (
+                        <>Send Request <ArrowRight size={18} /></>
+                      )}
+                    </button>
+                  </motion.form>
+                )}
+              </AnimatePresence>
+            </motion.div>
+
+          </div>
+        </div>
+      </div>
+
+      {/* ── CTA Banner ── */}
       <div className={styles.ctaBanner}>
         <div className="container">
           <div className={styles.ctaInner}>
@@ -56,6 +311,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
+
     </section>
   );
 };

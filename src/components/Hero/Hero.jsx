@@ -86,10 +86,10 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
           >
-            <a href="#contact" className={`btn ${styles.btnPrimary}`}>
+            <a href="#quote-form" className={`btn ${styles.btnPrimary}`}>
               Get Free Quote <ArrowRight size={18} style={{ marginLeft: '8px' }} />
             </a>
-            <a href="#contact" className={`btn ${styles.btnOutline}`}>
+            <a href="#quote-form" className={`btn ${styles.btnOutline}`}>
               Schedule Inspection
             </a>
           </motion.div>
