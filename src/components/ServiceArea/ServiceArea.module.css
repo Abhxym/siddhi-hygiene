@@ -212,3 +212,114 @@
   .orgGrid { grid-template-columns: 1fr; }
   .section { padding: 5rem 0; }
 }
+
+/* ── Our Clients Section ── */
+.clientsSection {
+  background: var(--color-text-dark);
+  padding: 5rem 0 4rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.clientsHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.clientsEyebrow {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--color-secondary);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.clientsTitle {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--color-white);
+  letter-spacing: -0.5px;
+  margin-bottom: 0.75rem;
+}
+
+.clientsSub {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.5);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* ── Ticker ── */
+.tickerWrap {
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.tickerTrack {
+  display: flex;
+  width: max-content;
+  animation: tickerLeft 40s linear infinite;
+  gap: 0;
+}
+
+.tickerTrack:hover {
+  animation-play-state: paused;
+}
+
+.tickerReverse {
+  animation: tickerRight 35s linear infinite;
+}
+
+.tickerItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  white-space: nowrap;
+  padding: 0.55rem 1.5rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px;
+  margin-right: 0.75rem;
+  background: rgba(255,255,255,0.04);
+  transition: all 0.25s;
+  cursor: default;
+}
+
+.tickerItem:hover {
+  color: var(--color-white);
+  background: rgba(89,66,148,0.35);
+  border-color: var(--color-primary);
+}
+
+.tickerDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-secondary);
+  flex-shrink: 0;
+}
+
+@keyframes tickerLeft {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes tickerRight {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@media (max-width: 640px) {
+  .clientsTitle { font-size: 1.85rem; }
+  .clientsSection { padding: 4rem 0 3rem; }
+}
+
