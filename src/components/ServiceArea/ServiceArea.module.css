@@ -216,14 +216,14 @@
 /* ── Our Clients Section ── */
 .clientsSection {
   background: var(--color-text-dark);
-  padding: 5rem 0 4rem;
+  padding: 8rem 0 7rem;
   overflow: hidden;
   position: relative;
 }
 
 .clientsHeader {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4.5rem;
 }
 
 .clientsEyebrow {
@@ -237,26 +237,26 @@
 }
 
 .clientsTitle {
-  font-size: 2.4rem;
+  font-size: 3.2rem;
   font-weight: 800;
   color: var(--color-white);
-  letter-spacing: -0.5px;
-  margin-bottom: 0.75rem;
+  letter-spacing: -1px;
+  margin-bottom: 1rem;
 }
 
 .clientsSub {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   color: rgba(255,255,255,0.5);
-  max-width: 480px;
+  max-width: 520px;
   margin: 0 auto;
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
 /* ── Ticker ── */
 .tickerWrap {
   width: 100%;
   overflow: hidden;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
@@ -264,7 +264,7 @@
 .tickerTrack {
   display: flex;
   width: max-content;
-  animation: tickerLeft 40s linear infinite;
+  animation: tickerLeft 70s linear infinite;
   gap: 0;
 }
 
@@ -273,22 +273,22 @@
 }
 
 .tickerReverse {
-  animation: tickerRight 35s linear infinite;
+  animation: tickerRight 60s linear infinite;
 }
 
 .tickerItem {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.75rem;
   white-space: nowrap;
-  padding: 0.55rem 1.5rem;
-  font-size: 0.88rem;
+  padding: 0.85rem 2rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: rgba(255,255,255,0.75);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1.5px solid rgba(255,255,255,0.12);
   border-radius: 100px;
-  margin-right: 0.75rem;
-  background: rgba(255,255,255,0.04);
+  margin-right: 1rem;
+  background: rgba(255,255,255,0.05);
   transition: all 0.25s;
   cursor: default;
 }
@@ -301,8 +301,8 @@
 
 .tickerDot {
   display: inline-block;
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: var(--color-secondary);
   flex-shrink: 0;
@@ -318,8 +318,15 @@
   100% { transform: translateX(0); }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  .clientsTitle { font-size: 2.2rem; }
+  .clientsSection { padding: 6rem 0 5rem; }
+  .tickerItem { font-size: 0.92rem; padding: 0.7rem 1.4rem; }
+}
+
+@media (max-width: 480px) {
   .clientsTitle { font-size: 1.85rem; }
-  .clientsSection { padding: 4rem 0 3rem; }
+  .clientsSection { padding: 5rem 0 4rem; }
+  .tickerItem { font-size: 0.82rem; padding: 0.6rem 1.1rem; }
 }
 
