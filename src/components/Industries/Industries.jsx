@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Building2, Factory, HeartPulse, Hotel, Warehouse, ChevronLeft, ChevronRight, Waves, ArrowRight, CheckCircle2 } from 'lucide-react';
 import styles from './Industries.module.css';

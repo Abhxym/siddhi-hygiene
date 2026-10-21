@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Wind, Bug, Bath, Building2, Droplets, Hammer, Sparkles, CheckCircle2 } from 'lucide-react';
 import styles from './Problems.module.css';

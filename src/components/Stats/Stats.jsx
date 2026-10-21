@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Award, Briefcase, Factory, ThumbsUp } from 'lucide-react';
 import styles from './Stats.module.css';
@@ -57,8 +57,9 @@ const Stats = () => {
       ([e]) => { if (e.isIntersecting) setActive(true); },
       { threshold: 0.25 }
     );
-    if (ref.current) observer.observe(ref.current);
-    return () => ref.current && observer.unobserve(ref.current);
+    const node = ref.current;
+    if (node) observer.observe(node);
+    return () => observer.disconnect();
   }, []);
 
   return (

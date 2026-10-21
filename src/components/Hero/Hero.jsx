@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import styles from './Hero.module.css';
@@ -36,7 +36,7 @@ const Hero = () => {
           playsInline 
           className={styles.videoBackground}
         >
-          <source src="/video/hero-bg.mp4" type="video/mp4" />
+          <source src="./video/hero-bg.mp4" type="video/mp4" />
         </video>
         <div className={styles.overlay}></div>
       </motion.div>
