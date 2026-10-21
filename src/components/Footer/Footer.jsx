@@ -1,4 +1,3 @@
-import React from 'react';
 import { Linkedin, Instagram, Facebook, Phone, Mail, MapPin, Clock } from 'lucide-react';
 import styles from './Footer.module.css';
 
@@ -9,7 +8,7 @@ const Footer = () => {
         <div className={styles.top}>
           <div className={styles.brand}>
             <a href="#hero" className={styles.logo}>
-              <img src="/logo.png" alt="Siddhi Hygiene" className={styles.logoImg} />
+              <img src="./logo.png" alt="Siddhi Hygiene" className={styles.logoImg} />
             </a>
             <p className={styles.tagline}>
               Professional Deep Cleaning &amp; Sanitization Services for Commercial Spaces across Pune.

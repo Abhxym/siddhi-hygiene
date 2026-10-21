@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
@@ -16,7 +16,7 @@ const Navbar = () => {
     <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
       <div className={`container ${styles.inner}`}>
         <a href="#hero" className={styles.logo}>
-          <img src="/logo.png" alt="Siddhi Hygiene" className={styles.logoImg} />
+          <img src="./logo.png" alt="Siddhi Hygiene" className={styles.logoImg} />
         </a>
 
         <ul className={styles.navLinks}>

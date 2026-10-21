@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Leaf, Users2, ArrowRight } from 'lucide-react';
 import styles from './About.module.css';
@@ -104,7 +103,7 @@ const About = () => {
               controls
               className={styles.video}
             >
-              <source src="/video/about-us.mp4" type="video/mp4" />
+              <source src="./video/about-us.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>

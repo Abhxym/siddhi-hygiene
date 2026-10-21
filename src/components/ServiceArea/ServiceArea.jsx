@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import {
   Building2, Factory, Landmark, HeartPulse,
@@ -70,15 +69,15 @@ const ServiceArea = () => (
           >
             <div className={styles.imageGrid}>
               <div className={styles.imgBox}>
-                <img src="/gallery/work4.png" alt="High-rise facade cleaning" />
+                <img src="./gallery/work4.png" alt="High-rise facade cleaning" />
                 <div className={styles.imgOverlay} />
               </div>
               <div className={styles.imgBox}>
-                <img src="/gallery/work6.jpg" alt="Office deep cleaning" />
+                <img src="./gallery/work6.jpg" alt="Office deep cleaning" />
                 <div className={styles.imgOverlay} />
               </div>
               <div className={styles.imgBox}>
-                <img src="/gallery/work10.jpg" alt="Industrial cleaning" />
+                <img src="./gallery/work10.jpg" alt="Industrial cleaning" />
                 <div className={styles.imgOverlay} />
               </div>
             </div>

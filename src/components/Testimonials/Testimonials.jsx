@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Star, Quote, MapPin } from 'lucide-react';
 import styles from './Testimonials.module.css';

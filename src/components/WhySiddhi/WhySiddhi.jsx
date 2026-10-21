@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Leaf, Users, Clock, ClipboardCheck, Handshake } from 'lucide-react';
 import styles from './WhySiddhi.module.css';
